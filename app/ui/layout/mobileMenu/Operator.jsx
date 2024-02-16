@@ -1,19 +1,19 @@
 import React from "react";
 import Link from "next/link";
-export default function Operator({ operators, setSidebarOpen }) {
+export default function User({ operators, setSidebarOpen }) {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
   return (
     <li>
       <div className="text-xs font-semibold leading-6 text-gray-400">
-        Your teams
+        کاربران
       </div>
       <ul role="list" className="-mx-2 mt-2 space-y-1">
         {operators.map((team) => (
           <li key={team.name} onClick={() => setSidebarOpen(true)}>
             <Link
-              to={team.href}
+              href={team.href}
               className={classNames(
                 team.current
                   ? "bg-gray-800 text-white"

@@ -8,7 +8,7 @@ export default function DeskTopOperator({ operators }) {
   return (
     <li>
       <div className="text-right text-xs font-semibold leading-6 text-gray-400">
-        Your teams
+        کاربران
       </div>
       <ul role="list" className="-mx-2 mt-2 space-y-1">
         {operators.map((team) => (
