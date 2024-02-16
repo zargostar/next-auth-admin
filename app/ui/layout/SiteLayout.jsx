@@ -51,15 +51,15 @@ const admins = [
     current: false,
   },
 ];
-const appUsers = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
-];
 const operators = [
-  { id: 1, name: "خزوج از سیستم", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
+  { id: 1, name: "ابشده فروش", href: "/", initial: "H", current: false },
+  { id: 2, name: "Tailwind Labs", href: "/", initial: "T", current: false },
+  { id: 3, name: "Workcation", href: "/", initial: "W", current: false },
+];
+const appUsers = [
+  { id: 1, name: "user1", href: "/", initial: "H", current: false },
+  { id: 2, name: "Tailwind Labs", href: "/", initial: "T", current: false },
+  { id: 3, name: "Workcation", href: "/", initial: "W", current: false },
 ];
 
 export default function SiteLayout({ children }) {
@@ -153,10 +153,7 @@ export default function SiteLayout({ children }) {
                           users={appUsers}
                           setSidebarOpen={() => setSidebarOpen(false)}
                         />
-                        <Operator
-                          operators={operators}
-                          setSidebarOpen={() => setSidebarOpen(false)}
-                        />
+                        <Operator operators={appUsers} />
                       </ul>
                     </nav>
                   </div>
