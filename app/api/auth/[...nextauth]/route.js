@@ -5,7 +5,7 @@ const authHandler = NextAuth({
   session: {
     strategy: "jwt",
   },
-  //useSecureCookies: true,
+
   providers: [
     DuendeIDS6Provider({
       id: "id-server",
@@ -21,16 +21,16 @@ const authHandler = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
 
-  // callbacks: {
-  //   jwt: async ({ token, user }) => {
-  //     user && (token.user = user);
-  //     return token;
-  //   },
-  //   session: async ({ session, token }) => {
-  //     session.user = token.user;
-  //     return session;
-  //   },
-  // },
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user;
+      return session;
+    },
+  },
   // callbacks: {
   //   async jwt({ token, user }) {
   //     return { ...token, ...user };
