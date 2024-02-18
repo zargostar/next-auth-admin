@@ -21,6 +21,7 @@ import DeskTopUser from "./deskTopMenu/DeskTopUser";
 import DeskTopOperator from "./deskTopMenu/DeskTopOperator";
 import DeskTopProfile from "./profile/DeskTopProfile";
 import MobileProfile from "./profile/MobileProfile";
+import LoginButton from "@/app/components/LoginButton";
 
 const admins = [
   { name: "داشبورد", href: "/app/index", icon: HomeIcon, current: true },
@@ -175,6 +176,7 @@ export default function SiteLayout({ children }) {
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   />
+                  <LoginButton />
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
