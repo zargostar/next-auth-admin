@@ -40,8 +40,8 @@ const admins = [
     current: false,
   },
   {
-    name: "تنظیمات سایت",
-    href: "#",
+    name: "کوکی ها",
+    href: "/session",
     icon: DocumentDuplicateIcon,
     current: false,
   },

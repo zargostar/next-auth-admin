@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 //import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6";
 import DuendeIDS6Provider from "next-auth/providers/duende-identity-server6";
+
 const authHandler = NextAuth({
   session: {
     strategy: "jwt",
@@ -11,8 +12,8 @@ const authHandler = NextAuth({
       id: "id-server",
       clientId: "adminfrontend",
       clientSecret: "secret",
-      issuer: "http://localhost:5000",
-
+      issuer: process.env.NEXTAUTH_URL,
+      //issuer: "http://localhost:5000",
       authorization: {
         params: { scope: "openid profile adminpanel " },
       },
@@ -22,12 +23,18 @@ const authHandler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    jwt: async ({ token, user }) => {
-      user && (token.user = user);
-      return token;
+    jwt: async ({ token, user, profile, account }) => {
+      //console.log("callback");
+      //console.log({ token, user });
+
+      return { ...token, ...user, ...profile, ...account };
     },
     session: async ({ session, token }) => {
-      session.user = token.user;
+      session.user = token;
+      // console.log("sessiom test");
+      // console.log(token);
+      // session.account = account;
+
       return session;
     },
   },
