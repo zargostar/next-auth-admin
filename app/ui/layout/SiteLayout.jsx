@@ -22,6 +22,8 @@ import DeskTopOperator from "./deskTopMenu/DeskTopOperator";
 import DeskTopProfile from "./profile/DeskTopProfile";
 import MobileProfile from "./profile/MobileProfile";
 import LoginButton from "@/app/components/LoginButton";
+import MenuAuthorization from "@/app/helpers/MenuAuthorization";
+import { useCurrentUser } from "@/app/helpers/currentUser";
 
 const admins = [
   { name: "داشبورد", href: "/app/index", icon: HomeIcon, current: true },
@@ -46,7 +48,7 @@ const admins = [
     current: false,
   },
   {
-    name: "Reports",
+    name: "ادمین",
     href: "/app/siteManager",
     icon: ChartPieIcon,
     current: false,
@@ -65,6 +67,7 @@ const appUsers = [
 
 export default function SiteLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { userRoles } = useCurrentUser();
 
   return (
     <div className="">
@@ -144,12 +147,12 @@ export default function SiteLayout({ children }) {
                         className="flex items-end flex-1 flex-col gap-y-7 "
                       >
                         {" "}
-                        {/* <AuthenticationMenu role="admin"> */}
-                        <Admin
-                          admins={admins}
-                          setSidebarOpen={(value) => setSidebarOpen(value)}
-                        />
-                        {/* </AuthenticationMenu> */}
+                        <MenuAuthorization roles={userRoles} role="operator">
+                          <Admin
+                            admins={admins}
+                            setSidebarOpen={(value) => setSidebarOpen(value)}
+                          />
+                        </MenuAuthorization>
                         <User
                           users={appUsers}
                           setSidebarOpen={() => setSidebarOpen(false)}
@@ -180,10 +183,9 @@ export default function SiteLayout({ children }) {
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                    {/* <AuthenticationMenu role="admin"> */}
-                    <DeskTopAdmin admins={admins} />
-                    {/* </AuthenticationMenu> */}
-
+                    <MenuAuthorization roles={userRoles} role="operator">
+                      <DeskTopAdmin admins={admins} />
+                    </MenuAuthorization>
                     <DeskTopUser users={appUsers} />
                     <DeskTopOperator operators={operators} />
                     <DeskTopProfile />

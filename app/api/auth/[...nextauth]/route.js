@@ -12,8 +12,8 @@ const authHandler = NextAuth({
       id: "id-server",
       clientId: "adminfrontend",
       clientSecret: "secret",
-      issuer: process.env.NEXTAUTH_URL,
-      //issuer: "http://localhost:5000",
+      issuer: process.env.NEXTAUTH_ISSUER,
+
       authorization: {
         params: { scope: "openid profile adminpanel " },
       },
