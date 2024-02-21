@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   CalendarIcon,
@@ -67,7 +67,11 @@ const appUsers = [
 
 export default function SiteLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [roles, setRoles] = useState([]);
   const { userRoles } = useCurrentUser();
+  useEffect(() => {
+    setRoles(userRoles);
+  }, [userRoles]);
 
   return (
     <div className="">
@@ -147,7 +151,7 @@ export default function SiteLayout({ children }) {
                         className="flex items-end flex-1 flex-col gap-y-7 "
                       >
                         {" "}
-                        <MenuAuthorization roles={userRoles} role="operator">
+                        <MenuAuthorization roles={roles} role="operator">
                           <Admin
                             admins={admins}
                             setSidebarOpen={(value) => setSidebarOpen(value)}
@@ -183,11 +187,18 @@ export default function SiteLayout({ children }) {
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                    <MenuAuthorization roles={userRoles} role="operator">
+                    <MenuAuthorization roles={roles} role="operator">
                       <DeskTopAdmin admins={admins} />
                     </MenuAuthorization>
-                    <DeskTopUser users={appUsers} />
-                    <DeskTopOperator operators={operators} />
+
+                    <MenuAuthorization roles={roles} role="operator">
+                      <DeskTopOperator operators={operators} />
+                    </MenuAuthorization>
+
+                    <MenuAuthorization roles={roles} role="operator">
+                      <DeskTopUser users={appUsers} />
+                    </MenuAuthorization>
+
                     <DeskTopProfile />
                   </ul>
                 </nav>

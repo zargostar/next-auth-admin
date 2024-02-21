@@ -1,27 +1,33 @@
 // import React, { useEffect, useState } from "react";
 // import { useCurrentUser } from "../helpers/currentUser";
+"use client";
 import { fetchData } from "../actions/productActions";
 import { getServerSession } from "next-auth";
-export default async function Products() {
-  const session = await getServerSession();
-  console.log("session hhhh");
-  console.log(session);
+import { useCurrentUser } from "../helpers/currentUser";
+import { useEffect, useState } from "react";
+export default function Products() {
+  const { token } = useCurrentUser();
+  const [products, setProduct] = useState([]);
 
-  //const { token } = useCurrentUser();
-  // const [products, setProduct] = useState([]);
-  const data = await fetchData("");
-
-  //   useEffect(() => {
-  //     async function result() {
-  //       return await fetchData();
-  //     }
-  //     const { data } = result();
-  //     setProduct(data);
-  //   }, [token]);
+  useEffect(() => {
+    async function result() {
+      const res = await fetchData(token);
+      return res;
+    }
+    result()
+      .then((data) => {
+        setProduct(data);
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log("from catch");
+        console.log(e);
+      });
+  }, [token]);
 
   return (
     <div>
-      {data?.map((product) => (
+      {products?.map((product) => (
         <div key={product.id}>{product.price}</div>
       ))}
     </div>

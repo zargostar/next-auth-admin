@@ -6,6 +6,7 @@ async function fetchData(token) {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
+      mode: "cors",
       method: "GET",
     });
     if (!result.ok) {
@@ -18,9 +19,7 @@ async function fetchData(token) {
     console.log(data);
     return data;
   } catch (error) {
-    console.log("result is not  ok");
-    console.log(error);
-    // throw new Error(error);
+    throw new Error(error);
   }
 }
 export { fetchData };
