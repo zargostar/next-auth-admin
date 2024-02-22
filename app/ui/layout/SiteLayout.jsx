@@ -11,7 +11,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import DeskTopAdmin from "./deskTopMenu/DeskTopAdmin";
-// import Link from "next/link";
 
 import Button from "../components/Button";
 import User from "./mobileMenu/User";
@@ -21,9 +20,9 @@ import DeskTopUser from "./deskTopMenu/DeskTopUser";
 import DeskTopOperator from "./deskTopMenu/DeskTopOperator";
 import DeskTopProfile from "./profile/DeskTopProfile";
 import MobileProfile from "./profile/MobileProfile";
-import LoginButton from "@/app/components/LoginButton";
 import MenuAuthorization from "@/app/helpers/MenuAuthorization";
 import { useCurrentUser } from "@/app/helpers/currentUser";
+import { signOut } from "next-auth/react";
 
 const admins = [
   { name: "داشبورد", href: "/app/index", icon: HomeIcon, current: true },
@@ -139,7 +138,7 @@ export default function SiteLayout({ children }) {
                     </div>
                     <Button
                       onClick={() => {
-                        logout();
+                        signOut();
                       }}
                       className="flex-grow-0"
                     >
@@ -183,7 +182,6 @@ export default function SiteLayout({ children }) {
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   />
-                  <LoginButton />
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
